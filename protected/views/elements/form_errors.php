@@ -18,7 +18,9 @@
  */
 ?>
 <?php if (isset($errors) && !empty($errors)) {?>
-	<div class="alert-box alert with-icon<?php if ($bottom) echo " bottom";?>">
+
+	<?php $bottom_ = (isset($bottom)) ? $bottom : false; ?>
+	<div class="alert-box alert with-icon<?php if ($bottom_) echo " bottom";?>">
 		<p>Please fix the following input errors:</p>
 		<?php foreach ($errors as $field => $errs) {?>
 			<?php foreach ($errs as $err) {?>
