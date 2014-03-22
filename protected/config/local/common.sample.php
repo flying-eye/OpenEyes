@@ -102,7 +102,8 @@ $config = array(
 		//'log_events' => true,
 		'specialty_codes' => array(130),
 		//'default_site_code' => '',
-		'specialty_sort' => array(130, 'SUP')
+		'specialty_sort' => array(130, 'SUP'),
+		'allow_eyelogbook_integration' => true,
 	),
 );
 
