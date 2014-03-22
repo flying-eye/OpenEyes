@@ -209,6 +209,19 @@ class Helper
 		}
 	}
 
+	/** get year from MYSQL formatted date
+	 *
+	 * @param $date
+	 * @return mixed
+	 */
+	public static function getYearFromMySQLDate($date)
+	{
+		if (!preg_match('/^\d{4}-\d{2}-\d{2}/', $date) || $date == '0000-00-00 00:00:00' || $date == '0000-00-00') return false;
+
+		$php_date = strtotime($date);
+		return date('Y', $php_date);
+	}
+
 	/**
 	 * convert string of format n[units] to bytes
 	 * units can be one of B, KB, MB, GB, TB, PB, EB, ZB or YB (case-insensitive)

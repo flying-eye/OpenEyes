@@ -25,7 +25,7 @@ if (isset($date)) {
 	list ($sel_year, $sel_month, $sel_day) = explode("-", $date);
 } else {
 	$sel_day = $sel_month = null;
-	$sel_year = date('Y');
+	$sel_year = ($this->patient->isDeceased()) ? Helper::getYearFromMySQLDate($this->patient->date_of_death) : date('Y') ;
 }
 ?>
 <fieldset class="row field-row fuzzy_date <?php echo @$class?>">
@@ -52,7 +52,9 @@ if (isset($date)) {
 			</div>
 			<div class="large-4 column end">
 				<select name="fuzzy_year">
-				<?php for ($i=date('Y')-50;$i<=date('Y');$i++) {?>
+				<?php
+					$max_year = ($this->patient->isDeceased()) ? Helper::getYearFromMySQLDate($this->patient->date_of_death) : date('Y') ;
+					for ($i=$max_year-50;$i<=$max_year;$i++) {?>
 					<option value="<?= $i?>"<?= ($i == $sel_year) ? " selected" : ""?>><?= $i?></option>
 				<?php }?>
 				</select>
