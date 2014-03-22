@@ -163,6 +163,8 @@ class ProfileController extends BaseController
 			}
 		}
 
+
+
 		$this->render('/profile/eyelogbook',array(
 			'eyelogbook_account' => $eyelogbook_account,
 			'errors' => $errors,
