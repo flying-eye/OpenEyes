@@ -54,7 +54,7 @@
 			</div>
 			<div class="row field-row">
 				<div class="large-5 large-offset-2 column">
-					<div id="eyelogbook_test_alertbox" class="alert-box with-icon" style="display: none;"></div>
+					<div id="eyelogbook_test_alertbox" class="alert-box" style="display: none;"></div>
 				</div>
 			</div>
 		<?php } ?>
@@ -62,6 +62,11 @@
 		<?php $this->endWidget() ?>
 
 <?php
+Yii::app()->clientScript->registerScript('empty_password_on_focus',
+	"$('#EyelogbookAccount_password').focus(function(){
+		$(this).val('');
+	});", CClientScript::POS_READY);
+
 Yii::app()->clientScript->registerScript('enable_test_button',
 	"$('.eyelogbook_input').keyup(function(){
 		if ($('#EyelogbookAccount_username').val().length == 0 || $('#EyelogbookAccount_password').val().length == 0) {
