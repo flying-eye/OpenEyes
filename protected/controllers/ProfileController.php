@@ -59,17 +59,15 @@ class ProfileController extends BaseController
 		$user = User::model()->findByPk(Yii::app()->user->id);
 
 		if (!empty($_POST)) {
-			if (Yii::app()->params['profile_user_can_edit']) {
-				foreach (array('title','first_name','last_name','email','qualifications') as $field) {
-					if (isset($_POST['User'][$field])) {
-						$user->{$field} = $_POST['User'][$field];
-					}
+			foreach (array('title','first_name','last_name','email','qualifications') as $field) {
+				if (isset($_POST['User'][$field])) {
+					$user->{$field} = $_POST['User'][$field];
 				}
-				if (!$user->save()) {
-					$errors = $user->getErrors();
-				} else {
-					Yii::app()->user->setFlash('success', "Your profile has been updated.");
-				}
+			}
+			if (!$user->save()) {
+				$errors = $user->getErrors();
+			} else {
+				Yii::app()->user->setFlash('success', "Your profile has been updated.");
 			}
 		}
 
@@ -90,32 +88,30 @@ class ProfileController extends BaseController
 		$user = User::model()->findByPk(Yii::app()->user->id);
 
 		if (!empty($_POST)) {
-			if (Yii::app()->params['profile_user_can_change_password']) {
-				if (empty($_POST['User']['password_old'])) {
-					$errors['Current password'] = array('Please enter your current password');
-				} elseif ($user->password !== md5($user->salt.$_POST['User']['password_old'])) {
-					$errors['Current password'] = array('Password is incorrect');
-				}
+			if (empty($_POST['User']['password_old'])) {
+				$errors['Current password'] = array('Please enter your current password');
+			} elseif ($user->password !== md5($user->salt.$_POST['User']['password_old'])) {
+				$errors['Current password'] = array('Password is incorrect');
+			}
 
-				if (empty($_POST['User']['password_new'])) {
-					$errors['New password'] = array('Please enter your new password');
-				}
+			if (empty($_POST['User']['password_new'])) {
+				$errors['New password'] = array('Please enter your new password');
+			}
 
-				if (empty($_POST['User']['password_confirm'])) {
-					$errors['Confirm password'] = array('Please confirm your new password');
-				}
+			if (empty($_POST['User']['password_confirm'])) {
+				$errors['Confirm password'] = array('Please confirm your new password');
+			}
 
-				if ($_POST['User']['password_new'] != $_POST['User']['password_confirm']) {
-					$errors['Confirm password'] = array("Passwords don't match");
-				}
+			if ($_POST['User']['password_new'] != $_POST['User']['password_confirm']) {
+				$errors['Confirm password'] = array("Passwords don't match");
+			}
 
-				if (empty($errors)) {
-					$user->password = $user->password_repeat = $_POST['User']['password_new'];
-					if (!$user->save()) {
-						$errors = $user->getErrors();
-					} else {
-						Yii::app()->user->setFlash('success', "Your password has been changed.");
-					}
+			if (empty($errors)) {
+				$user->password = $user->password_repeat = $_POST['User']['password_new'];
+				if (!$user->save()) {
+					$errors = $user->getErrors();
+				} else {
+					Yii::app()->user->setFlash('success', "Your password has been changed.");
 				}
 			}
 
