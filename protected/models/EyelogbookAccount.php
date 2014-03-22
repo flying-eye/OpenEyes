@@ -33,6 +33,11 @@
 class EyelogbookAccount extends BaseActiveRecord
 {
 	/**
+	 * @var string this key is used to add a little extra security for when transferring password to eyelogbook
+	 */
+	private static $eyelogbook_password_hash_key = 'Sr7E52Pl';
+
+	/**
 	 * Returns the static model of the specified AR class.
 	 * @return EventIssue the static model class
 	 */
@@ -46,7 +51,7 @@ class EyelogbookAccount extends BaseActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'eyelogbook_account';
+		return 'user_eyelogbook_account';
 	}
 
 	/**
@@ -57,7 +62,8 @@ class EyelogbookAccount extends BaseActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username', 'required'),
+			array('username, password', 'required', 'message' => 'cannot be blank'),
+			array('username', 'unique', 'message' => 'already linked to another account'),
 			array('username', 'length', 'max' => 20),
 			array('username, password', 'filter', 'filter' => 'strip_tags'),
 		);
@@ -76,6 +82,10 @@ class EyelogbookAccount extends BaseActiveRecord
 	public function beforeSave()
 	{
 		$this->user_id = Yii::app()->user->id;
+
+		if (!empty($this->password)) {
+			$this->password = md5($this->password . $this->username . self::$eyelogbook_password_hash_key);
+		}
 
 		return parent::beforeSave();
 	}
