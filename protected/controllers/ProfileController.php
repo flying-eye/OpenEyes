@@ -15,6 +15,7 @@
  * @copyright Copyright (c) 2008-2011, Moorfields Eye Hospital NHS Foundation Trust
  * @copyright Copyright (c) 2011-2012, OpenEyes Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
+ *
  */
 
 class ProfileController extends BaseController
@@ -142,6 +143,29 @@ class ProfileController extends BaseController
 
 		$this->render('/profile/sites',array(
 			'user' => $user,
+		));
+	}
+
+	public function actionEyelogbook()
+	{
+		$errors = array();
+
+		$eyelogbook_account = (EyelogbookAccount::model()->find('user_id=:user_id', array(':user_id'=>Yii::app()->user->id)));
+		if (!$eyelogbook_account) $eyelogbook_account = new EyelogbookAccount();
+
+		if (!empty($_POST)) {
+			$eyelogbook_account->attributes = $_POST['EyelogbookAccount'];
+
+			if (!$eyelogbook_account->save()) {
+				$errors = $eyelogbook_account->getErrors();
+			} else {
+				Yii::app()->user->setFlash('success', "Your EyeLogbook account has been updated.");
+			}
+		}
+
+		$this->render('/profile/eyelogbook',array(
+			'eyelogbook_account' => $eyelogbook_account,
+			'errors' => $errors,
 		));
 	}
 
