@@ -4,11 +4,11 @@ class m140322_165221_create_eyelogbook_account_table extends CDbMigration
 {
 	public function up()
 	{
-		$this->createTable('eyelogbook_account', array(
+		$this->createTable('user_eyelogbook_account', array(
 			'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
 			'user_id' => 'int(10) unsigned NOT NULL',
 			'username' => 'varchar(20) NOT NULL',
-			'password' => 'varchar(40) DEFAULT NULL',
+			'password' => 'varchar(40) NOT NULL',
 			'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 			'last_modified_date' => 'datetime NOT NULL DEFAULT \'1900-01-01 00:00:00\'',
 			'created_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
@@ -25,7 +25,7 @@ class m140322_165221_create_eyelogbook_account_table extends CDbMigration
 
 	public function down()
 	{
-		$this->dropTable('eyelogbook_account');
+		$this->dropTable('user_eyelogbook_account');
 		return true;
 	}
 

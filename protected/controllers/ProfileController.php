@@ -153,7 +153,7 @@ class ProfileController extends BaseController
 		$eyelogbook_account = (EyelogbookAccount::model()->find('user_id=:user_id', array(':user_id'=>Yii::app()->user->id)));
 		if (!$eyelogbook_account) $eyelogbook_account = new EyelogbookAccount();
 
-		if (!empty($_POST)) {
+		if (!empty($_POST['EyelogbookAccount'])) {
 			$eyelogbook_account->attributes = $_POST['EyelogbookAccount'];
 
 			if (!$eyelogbook_account->save()) {
@@ -163,9 +163,7 @@ class ProfileController extends BaseController
 			}
 		}
 
-
-
-		$this->render('/profile/eyelogbook',array(
+		$this->render('/eyelogbook/view',array(
 			'eyelogbook_account' => $eyelogbook_account,
 			'errors' => $errors,
 		));
