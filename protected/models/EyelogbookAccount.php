@@ -23,6 +23,7 @@
  * The followings are the available columns in table 'eyelogbook_account':
  * @property integer $id
  * @property string $username
+ * @property string $password
  * @property integer $user_id
  *
  * The followings are the available model relations:
@@ -58,7 +59,7 @@ class EyelogbookAccount extends BaseActiveRecord
 		return array(
 			array('username', 'required'),
 			array('username', 'length', 'max' => 20),
-			array('username', 'filter', 'filter' => 'strip_tags'),
+			array('username, password', 'filter', 'filter' => 'strip_tags'),
 		);
 	}
 
