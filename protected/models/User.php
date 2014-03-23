@@ -30,6 +30,7 @@
  * @property string $password
  * @property string $salt
  * @property integer $global_firm_rights
+ * @property bool $is_doctor
  *
  * The followings are the available model relations:
  * @property EyelogbookAccount $eyelogbookAccount

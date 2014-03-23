@@ -11,7 +11,11 @@
 		}
 		$links['Sites'] = '/profile/sites';
 		$links['Firms'] = '/profile/firms';
-		if (Yii::app()->params['allow_eyelogbook_integration']) {
+
+		/** @var User $user */
+		$user = User::model()->findByPk(Yii::app()->user->id);
+
+		if (Yii::app()->params['allow_eyelogbook_integration'] && $user->is_doctor) {
 			$links['EyeLogbook account'] = '/profile/eyelogbook';
 		}
 		foreach ($links as $title => $uri) {?>
