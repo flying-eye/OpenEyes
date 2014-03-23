@@ -24,6 +24,7 @@ tags
 /protected/config/db_muu.php
 /protected/views/patient/custom/info/php
 /protected/commands/
+/protected/yiic.php
 vendor
 /.sass-cache
 /node_modules
