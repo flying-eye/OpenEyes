@@ -2555,6 +2555,7 @@ button, .button, input[type="submit"] {
   margin: 0;
   padding: 8px 23px 6px 23px;
   text-shadow: 1px 1px 0 #105dae, 2px 2px 0 #5c0faa;
+  outline: none;
 }
 /* line 47, ../sass/openeyes/components/_buttons.scss */
 button:hover, .button:hover, input[type="submit"]:hover {
