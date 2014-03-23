@@ -23,7 +23,7 @@
 ?>
 
 <div class="box admin">
-	<h2>EyeLogbook Account</h2>
+	<h2>EyeLogbook account</h2>
 
 	<?php
 	if ($eyelogbook_account->isNewRecord || !empty($_POST)) {
