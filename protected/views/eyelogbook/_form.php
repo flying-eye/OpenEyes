@@ -68,7 +68,7 @@ Yii::app()->clientScript->registerScript('empty_password_on_focus',
 	});", CClientScript::POS_READY);
 
 Yii::app()->clientScript->registerScript('enable_test_button',
-	"$('.eyelogbook_input').keyup(function(){
+	"$('.eyelogbook_input').on('keyup blur change', function(){
 		if ($('#EyelogbookAccount_username').val().length == 0 || $('#EyelogbookAccount_password').val().length == 0) {
 			$('#test_button').addClass('inactive');
 		} else {

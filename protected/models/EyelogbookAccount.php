@@ -64,7 +64,7 @@ class EyelogbookAccount extends BaseActiveRecord
 		return array(
 			array('username, password', 'required', 'message' => 'cannot be blank'),
 			array('username', 'unique', 'message' => 'already linked to another account'),
-			array('username', 'match', 'pattern' => '/^[a-z0-9\._@]$/i', 'message' => 'only numbers, letters and some symbols (. _ @) are allowed'),
+			array('username', 'match', 'pattern' => '/^[a-z0-9\._@]+$/i', 'message' => 'only numbers, letters and some symbols (. _ @) are allowed'),
 			array('username, password', 'filter', 'filter' => 'strip_tags'),
 		);
 	}
