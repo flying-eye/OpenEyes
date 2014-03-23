@@ -146,41 +146,6 @@ class ProfileController extends BaseController
 		));
 	}
 
-	public function actionEyelogbook()
-	{
-		$errors = array();
-
-		$new = false;
-		$eyelogbook_account = (EyelogbookAccount::model()->find('user_id=:user_id', array(':user_id'=>Yii::app()->user->id)));
-		if (!$eyelogbook_account) {
-			$eyelogbook_account = new EyelogbookAccount();
-			$new = true;
-		}
-
-		if (isset($_POST['unlink'])) {
-			if (!$eyelogbook_account->delete()) {
-				$errors = $eyelogbook_account->getErrors();
-			} else {
-				$eyelogbook_account = new EyelogbookAccount();
-				Yii::app()->user->setFlash('success', "Your EyeLogbook account has successfully been unlinked.");
-			}
-		} else if (!empty($_POST['EyelogbookAccount'])) {
-			$eyelogbook_account->attributes = $_POST['EyelogbookAccount'];
-
-			if (!$eyelogbook_account->save()) {
-				$errors = $eyelogbook_account->getErrors();
-			} else {
-				$descriptor = ($new) ? 'created' : 'updated';
-				Yii::app()->user->setFlash('success', "Your EyeLogbook account link has been {$descriptor}.");
-			}
-		}
-
-		$this->render('/eyelogbook/view',array(
-			'eyelogbook_account' => $eyelogbook_account,
-			'errors' => $errors,
-		));
-	}
-
 	public function actionAddSite()
 	{
 		if (@$_POST['site_id'] == 'all') {
