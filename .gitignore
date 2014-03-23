@@ -12,6 +12,7 @@ tags
 /.enabled-modules
 /index.php
 /nbproject/
+/protected/yiic.php
 /protected/data/*
 /protected/models/ElementExample.php
 /protected/models/elements/ElementExample.php
@@ -24,7 +25,6 @@ tags
 /protected/config/db_muu.php
 /protected/views/patient/custom/info/php
 /protected/commands/
-/protected/yiic.php
 vendor
 /.sass-cache
 /node_modules
