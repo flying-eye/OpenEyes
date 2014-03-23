@@ -69,9 +69,23 @@ class EyelogbookController extends BaseController
 
 	/**
 	 */
-	public function actionTestAccountCredentials()
+	public function actionTestUserCredentials()
 	{
-		$this->layout = 'main';
-		$this->render('index');
+		Yii::import('application.vendors.*');
+		require_once('Zend/Http/Client.php');
+
+		$client = new Zend_Http_Client();
+
+		$client->setUri('https://www.eyelogbook.co.uk/mobileAPI/openeyes/testUserCredentials.php');
+		$client->setConfig(array(
+			'timeout' => 5
+		));
+
+		$client->setParameterPost('username', $_POST['username']);
+		$client->setParameterPost('password', $_POST['password']);
+
+		$response = $client->request('POST');
+
+		echo CJSON::encode(array($response->getStatus(), $response->getBody()));
 	}
 }
