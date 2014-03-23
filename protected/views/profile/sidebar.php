@@ -16,7 +16,7 @@
 		$user = User::model()->findByPk(Yii::app()->user->id);
 
 		if (Yii::app()->params['allow_eyelogbook_integration'] && $user->is_doctor) {
-			$links['EyeLogbook account'] = '/profile/eyelogbook';
+			$links['EyeLogbook account'] = '/eyelogbook/account';
 		}
 		foreach ($links as $title => $uri) {?>
 			<li<?php if (Yii::app()->getController()->action->id == preg_replace('/^\/admin\//','',$uri)) {?> class="active"<?php }?>>

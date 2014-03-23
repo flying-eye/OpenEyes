@@ -27,7 +27,7 @@
 
 	<?php
 	if ($eyelogbook_account->isNewRecord || !empty($_POST)) {
-		$this->renderPartial('/eyelogbook/_form', array(
+		$this->renderPartial('_form', array(
 			'eyelogbook_account' => $eyelogbook_account,
 			'errors' => $errors,
 		));
