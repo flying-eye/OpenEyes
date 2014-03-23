@@ -36,21 +36,31 @@
 		<div class="row field-row">
 			<div class="large-12 column">
 				<div class="alert-box info">
-					<p style="font-weight: bold;">This OpenEyes account is linked to an EyeLogbook account</p>
-					<p>Username: <?php echo $eyelogbook_account->username; ?></p>
-					<p>Password: <i>saved in database</i></p>
+					This OpenEyes account is linked to an EyeLogbook account
 				</div>
 			</div>
 		</div>
+		<div class="row field-row">
+			<div class="large-2 column"><label>Username:</label></div>
+			<div class="large-5 column end"><label><?php echo $eyelogbook_account->username; ?></label></div>
+		</div>
+		<div class="row field-row">
+			<div class="large-2 column"><label>Password:</label></div>
+			<div class="large-5 column end"><label><i>saved in database</i></label></div>
+		</div>
+
 		<div class="row field-row">
 			<div class="large-12 column">
 				<?php $form = $this->beginWidget('BaseEventTypeCActiveForm', array(
 					'id' => 'profile-form',
 					'enableAjaxValidation' => false,
 				))?>
-					<button id="test_button" type="submit" class="primary">
-						Edit
-					</button>
+				<button id="test_button" type="submit" class="primary">
+					Edit
+				</button>
+				<button id="unlink_button" type="submit" class="warning" name="unlink" value="1">
+					Unlink
+				</button>
 				<?php $this->endWidget() ?>
 
 				</form>

@@ -150,16 +150,28 @@ class ProfileController extends BaseController
 	{
 		$errors = array();
 
+		$new = false;
 		$eyelogbook_account = (EyelogbookAccount::model()->find('user_id=:user_id', array(':user_id'=>Yii::app()->user->id)));
-		if (!$eyelogbook_account) $eyelogbook_account = new EyelogbookAccount();
+		if (!$eyelogbook_account) {
+			$eyelogbook_account = new EyelogbookAccount();
+			$new = true;
+		}
 
-		if (!empty($_POST['EyelogbookAccount'])) {
+		if (isset($_POST['unlink'])) {
+			if (!$eyelogbook_account->delete()) {
+				$errors = $eyelogbook_account->getErrors();
+			} else {
+				$eyelogbook_account = new EyelogbookAccount();
+				Yii::app()->user->setFlash('success', "Your EyeLogbook account has successfully been unlinked.");
+			}
+		} else if (!empty($_POST['EyelogbookAccount'])) {
 			$eyelogbook_account->attributes = $_POST['EyelogbookAccount'];
 
 			if (!$eyelogbook_account->save()) {
 				$errors = $eyelogbook_account->getErrors();
 			} else {
-				Yii::app()->user->setFlash('success', "Your EyeLogbook account has been updated.");
+				$descriptor = ($new) ? 'created' : 'updated';
+				Yii::app()->user->setFlash('success', "Your EyeLogbook account link has been {$descriptor}.");
 			}
 		}
 
