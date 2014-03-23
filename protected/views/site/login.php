@@ -22,7 +22,7 @@
 						<?php echo CHtml::activeLabel($model,'username', array('label'=>'Username:','class'=>'align')); ?>
 					</div>
 					<div class="large-8 column">
-						<?php echo $form->textField($model,'username',array('placeholder'=>'Enter username...','class'=>'large')); ?>
+						<?php echo $form->textField($model,'username',array('placeholder'=>'Enter username...','class'=>'large', 'autocomplete' => 'off')); ?>
 					</div>
 				</div>
 
