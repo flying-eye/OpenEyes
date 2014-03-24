@@ -30,6 +30,11 @@ class EyelogbookController extends BaseController
 
 	public function actionAccount()
 	{
+		/** @var User $user */
+		$user = User::model()->findByPk(Yii::app()->user->id);
+		if (!$user->is_doctor)
+			$this->redirect(array('/profile/info'));
+
 		Yii::app()->assetManager->registerCssFile('css/admin.css');
 		Yii::app()->assetManager->registerScriptFile('js/profile.js');
 		$this->layout = 'profile';
