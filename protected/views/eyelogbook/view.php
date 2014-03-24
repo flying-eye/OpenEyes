@@ -62,8 +62,6 @@
 					Unlink
 				</button>
 				<?php $this->endWidget() ?>
-
-				</form>
 			</div>
 		</div>
 	<?php } ?>
