@@ -63,6 +63,7 @@
 <?php
 Yii::app()->clientScript->registerScript('empty_password_on_focus',
 	"$('#EyelogbookAccount_password').focus(function(){
+		$('#eyelogbook_test_alertbox').hide();
 		$(this).val('');
 	});", CClientScript::POS_READY);
 
@@ -72,6 +73,9 @@ Yii::app()->clientScript->registerScript('enable_test_button',
 	$(button).attr('disabled','disabled');
 
 	$('.eyelogbook_input').on('keyup blur change', function(){
+
+		$('#eyelogbook_test_alertbox').hide();
+
 		if ($('#EyelogbookAccount_username').val().length == 0 || $('#EyelogbookAccount_password').val().length == 0) {
 			$(button).addClass('inactive');
 			$(button).attr('disabled','disabled');
@@ -98,7 +102,9 @@ Yii::app()->clientScript->registerScript('click_test_button',
 		var button = $('#test_button');
 		var alert_box = $('#eyelogbook_test_alertbox');
 
-		function requestFinished(success,message){
+		function requestFinished(success,message,persist_message){
+
+			persist_message = (typeof persist_message !== 'undefined') ? persist_message : false;
 
 			message = message.replace(/\"/g,'');
 
@@ -112,11 +118,13 @@ Yii::app()->clientScript->registerScript('click_test_button',
 
 			if (success) $(button).attr('disabled','disabled');
 
-			setTimeout(function() {
-				$(alert_box).fadeOut('fast', function(){
-					if (success) $(button).addClass('inactive');
-				});
-			}, timeout);
+			if (!persist_message) {
+				setTimeout(function() {
+					$(alert_box).fadeOut('fast', function(){
+						if (success) $(button).addClass('inactive');
+					});
+				}, timeout);
+			}
 		}
 
 		$.ajax({
@@ -133,8 +141,8 @@ Yii::app()->clientScript->registerScript('click_test_button',
 				$('.loader').show();
 			}
 		}).done(function(data){
-			if (data[0] == 200) requestFinished(true,data[1]);
-			else requestFinished(false,data[1]);
+			if (data[0] == 200) requestFinished(true,data[1],true);
+			else requestFinished(false,data[1],true);
 		}).fail(function(){
 			requestFinished(false,'There was a problem. Try again later.');
 		}).always(function(){
